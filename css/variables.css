@@ -1,0 +1,35 @@
+/* Colour tokens ported from the printed book's design system
+   (naseer2/config/colors.tex), so the app is recognizably "the same book". */
+:root {
+  --ntu-navy: #12355B;
+  --ntu-blue: #1E6091;
+  --ntu-teal: #168AAD;
+  --ntu-gold: #F4A261;
+  --ntu-red: #C44536;
+  --ntu-green: #2A9D8F;
+  --ntu-purple: #6D597A;
+  --ntu-light: #F4F8FB;
+  --ntu-dark: #263238;
+
+  --subj-english: #1E6091;
+  --subj-ar: #6D597A;
+  --subj-qr: #168AAD;
+  --subj-math: #3D348B;
+  --subj-physics: #0496FF;
+  --subj-chemistry: #2A9D8F;
+  --subj-cs: #12355B;
+  --subj-biology: #588157;
+  --subj-statistics: #BC6C25;
+
+  --sem-explanation: #2A9D8F;
+  --sem-tactic: #2A9D8F;
+  --sem-trap: #C44536;
+  --sem-remember: #6D597A;
+  --sem-warning: #E09F3E;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 1px 3px rgba(18,53,91,0.12), 0 1px 2px rgba(18,53,91,0.08);
+  --shadow-lg: 0 4px 16px rgba(18,53,91,0.16);
+  --max-width: 880px;
+}

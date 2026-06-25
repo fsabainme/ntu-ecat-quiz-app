@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NTU ECAT Quiz &amp; Study Dashboard</title>
+<meta name="description" content="Interactive practice quizzes, full-length model paper simulations, and a progress dashboard for NTU ECAT entry-test preparation.">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./assets/icons/favicon.ico">
+<meta name="theme-color" content="#12355B">
+<link rel="stylesheet" href="./css/variables.css">
+<link rel="stylesheet" href="./css/base.css">
+<link rel="stylesheet" href="./css/components.css">
+<link rel="stylesheet" href="./css/views.css">
+</head>
+<body>
+  <header id="app-header">
+    <a class="brand" href="#/">NTU ECAT</a>
+    <nav>
+      <a href="#/subjects">Practice</a>
+      <a href="#/papers">Model Papers</a>
+      <a href="#/settings">Settings</a>
+    </nav>
+  </header>
+
+  <main id="view-root"></main>
+
+  <footer class="app-footer">
+    NTU ECAT Quiz &amp; Study Dashboard &middot; unofficial study tool &middot; progress stored only on this device
+  </footer>
+
+  <!-- Data files: plain script tags (not fetch) so this works under file:// with no CORS issues -->
+  <script src="./data/manifest.data.js"></script>
+  <script src="./data/volume1.data.js"></script>
+  <script src="./data/volume2.data.js"></script>
+  <script src="./data/front_matter.data.js"></script>
+
+  <!-- App scripts, in dependency order -->
+  <script src="./js/util.js"></script>
+  <script src="./js/store.js"></script>
+  <script src="./js/data-index.js"></script>
+  <script src="./js/router.js"></script>
+  <script src="./js/views/dashboard.js"></script>
+  <script src="./js/views/subject-list.js"></script>
+  <script src="./js/views/topic-notes.js"></script>
+  <script src="./js/views/practice-quiz.js"></script>
+  <script src="./js/views/paper-list.js"></script>
+  <script src="./js/views/exam.js"></script>
+  <script src="./js/views/review.js"></script>
+  <script src="./js/views/settings.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

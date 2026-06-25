@@ -1,0 +1,1 @@
+window.NTU_DATA_MANIFEST = {"generatedAt":"2026-06-25T18:35:12.412877+00:00","sourceHash":"5f426e35ae7f","counts":{"subjects":9,"practice_sets":27,"practice_questions":675,"papers":40,"paper_questions":4000}};
