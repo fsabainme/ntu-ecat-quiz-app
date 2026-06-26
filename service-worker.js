@@ -1,7 +1,7 @@
 /* Cache-first service worker for the app shell + question data, so the app
    works fully offline after the first visit. Bump CACHE_VERSION whenever the
    app shell OR the data/*.data.js files change, to force a clean refresh. */
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v3";
 const CACHE_NAME = "ntu-ecat-cache-" + CACHE_VERSION;
 
 const PRECACHE_URLS = [
