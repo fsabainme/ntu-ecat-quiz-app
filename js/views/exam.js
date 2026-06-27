@@ -98,6 +98,11 @@ window.NTU.views = window.NTU.views || {};
 
       container.innerHTML = `
         <div class="exam-timer" id="exam-timer">--:--</div>
+        <div class="exam-top-actions">
+          <button class="btn btn-secondary" id="prev-q" ${idx === 0 ? "disabled" : ""}>&larr; Prev</button>
+          <button class="btn" id="next-q" ${idx === questions.length - 1 ? "disabled" : ""}>Next &rarr;</button>
+          <button class="btn btn-danger" id="submit-exam">Submit exam</button>
+        </div>
         <h1>${NTU.data.GROUP_LABELS[paper.group_code]} &mdash; Paper ${paper.paper_number}</h1>
         ${context.sectionTitle ? `<div class="badge">${escapeHtml(context.sectionTitle)}</div>` : ""}
         ${context.scenarioText ? `<div class="info-box explanation"><div class="info-box-label">Scenario</div>${escapeHtml(context.scenarioText)}</div>` : ""}
@@ -106,11 +111,6 @@ window.NTU.views = window.NTU.views || {};
           <div class="mcq-options" id="options"></div>
         </div>
         <div class="qnav-grid" id="qnav"></div>
-        <div class="quiz-nav-row">
-          <button class="btn btn-secondary" id="prev-q" ${idx === 0 ? "disabled" : ""}>&larr; Prev</button>
-          <button class="btn btn-primary-lg" id="next-q" ${idx === questions.length - 1 ? "disabled" : ""}>Next &rarr;</button>
-        </div>
-        <p style="margin-top:14px"><button class="btn btn-danger btn-primary-lg" id="submit-exam">Submit exam</button></p>
       `;
 
       const optionsEl = container.querySelector("#options");

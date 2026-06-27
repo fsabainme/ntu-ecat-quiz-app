@@ -53,6 +53,12 @@
    flex-grow-the-primary-button behavior. */
 .topic-nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; gap: 10px; flex-wrap: wrap; }
 
+/* Exam top action bar -- Next/Submit placed near the timer instead of below
+   the question, so they're reachable without scrolling. */
+.exam-top-actions { display: flex; justify-content: flex-end; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+.exam-top-actions .btn { padding: 8px 18px; font-size: 0.88rem; box-shadow: none; }
+.exam-top-actions .btn:hover { transform: none; box-shadow: none; }
+
 /* Review screen */
 .review-section-heading {
   background: var(--ntu-navy);
