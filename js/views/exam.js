@@ -108,9 +108,9 @@ window.NTU.views = window.NTU.views || {};
         <div class="qnav-grid" id="qnav"></div>
         <div class="quiz-nav-row">
           <button class="btn btn-secondary" id="prev-q" ${idx === 0 ? "disabled" : ""}>&larr; Prev</button>
-          <button class="btn btn-secondary" id="next-q" ${idx === questions.length - 1 ? "disabled" : ""}>Next &rarr;</button>
+          <button class="btn btn-primary-lg" id="next-q" ${idx === questions.length - 1 ? "disabled" : ""}>Next &rarr;</button>
         </div>
-        <p style="margin-top:14px"><button class="btn btn-danger" id="submit-exam">Submit exam</button></p>
+        <p style="margin-top:14px"><button class="btn btn-danger btn-primary-lg" id="submit-exam">Submit exam</button></p>
       `;
 
       const optionsEl = container.querySelector("#options");

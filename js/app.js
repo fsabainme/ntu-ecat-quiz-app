@@ -19,6 +19,8 @@ window.NTU = window.NTU || {};
   r.register("#/papers/:group/:paperNumber/exam", v.exam.renderExam);
   r.register("#/papers/:group/:paperNumber/review/:attemptId", v.review.renderExamReview);
 
+  r.register("#/book", v.book.render);
+
   r.register("#/settings", v.settings.render);
 
   function registerServiceWorker() {
@@ -29,6 +31,7 @@ window.NTU = window.NTU || {};
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    NTU.theme.init();
     registerServiceWorker();
     r.start();
   });

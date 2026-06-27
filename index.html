@@ -2,6 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+  /* Set the theme attribute before any CSS loads, to avoid a flash of the
+     wrong theme. Kept in sync with js/theme.js's storage key/attribute. */
+  (function () {
+    try {
+      var saved = localStorage.getItem("ntu-ecat-theme");
+      var theme = saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NTU ECAT Quiz &amp; Study Dashboard</title>
 <meta name="description" content="Interactive practice quizzes, full-length model paper simulations, and a progress dashboard for NTU ECAT entry-test preparation.">
@@ -19,8 +30,10 @@
     <nav>
       <a href="#/subjects">Practice</a>
       <a href="#/papers">Model Papers</a>
+      <a href="#/book">Study Book</a>
       <a href="#/settings">Settings</a>
     </nav>
+    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode" type="button">🌙</button>
   </header>
 
   <main id="view-root"></main>
@@ -37,12 +50,15 @@
 
   <!-- App scripts, in dependency order -->
   <script src="./js/util.js"></script>
+  <script src="./js/theme.js"></script>
   <script src="./js/store.js"></script>
   <script src="./js/data-index.js"></script>
   <script src="./js/router.js"></script>
+  <script src="./js/views/blocks-renderer.js"></script>
   <script src="./js/views/dashboard.js"></script>
   <script src="./js/views/subject-list.js"></script>
   <script src="./js/views/topic-notes.js"></script>
+  <script src="./js/views/book.js"></script>
   <script src="./js/views/practice-quiz.js"></script>
   <script src="./js/views/paper-list.js"></script>
   <script src="./js/views/exam.js"></script>

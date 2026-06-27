@@ -20,10 +20,10 @@ window.NTU.views = window.NTU.views || {};
     container.innerHTML = `
       <h1>Dashboard</h1>
       <div class="dashboard-stats">
-        ${statTile(setsAttempted + "/" + totalSets, "Practice sets done")}
-        ${statTile(avgPracticeScore + "%", "Avg. practice score")}
-        ${statTile(papersAttempted + "/" + totalPapers, "Model papers done")}
-        ${statTile(avgExamScore + "%", "Avg. exam score")}
+        ${statTile(setsAttempted + "/" + totalSets, "Practice sets done", "var(--subj-physics)")}
+        ${statTile(avgPracticeScore + "%", "Avg. practice score", "var(--feedback-correct)")}
+        ${statTile(papersAttempted + "/" + totalPapers, "Model papers done", "var(--subj-statistics)")}
+        ${statTile(avgExamScore + "%", "Avg. exam score", "var(--subj-math)")}
       </div>
 
       ${isEmpty ? emptyState() : ""}
@@ -52,8 +52,8 @@ window.NTU.views = window.NTU.views || {};
     return Math.round(nums.reduce((a, b) => a + b, 0) / nums.length);
   }
 
-  function statTile(value, label) {
-    return `<div class="stat-tile"><div class="stat-value">${value}</div><div class="stat-label">${label}</div></div>`;
+  function statTile(value, label, color) {
+    return `<div class="stat-tile" style="--tile-color:${color || "var(--ntu-navy)"}"><div class="stat-value">${value}</div><div class="stat-label">${label}</div></div>`;
   }
 
   function emptyState() {
@@ -77,11 +77,18 @@ window.NTU.views = window.NTU.views || {};
     </a>`;
   }
 
+  const GROUP_COLORS = {
+    PM: "var(--subj-biology)",
+    PE: "var(--subj-physics)",
+    ICSP: "var(--subj-cs)",
+    ICSS: "var(--subj-statistics)",
+  };
+
   function groupRow(code, state) {
     const attempts = state.examAttempts.filter((a) => a.groupCode === code);
     const papersDone = new Set(attempts.map((a) => a.paperNumber)).size;
     const best = attempts.length ? Math.max(...attempts.map((a) => pct(a.score, a.totalQuestions))) : null;
-    return `<a class="card subject-card" href="#/papers" data-group="${code}">
+    return `<a class="card subject-card" style="--card-accent:${GROUP_COLORS[code] || "var(--ntu-blue)"}" href="#/papers" data-group="${code}">
       <div class="subject-name">${NTU.data.GROUP_LABELS[code]}</div>
       <div class="subject-meta muted">${papersDone}/10 papers &middot; ${best == null ? "no attempts" : "best " + best + "%"}</div>
     </a>`;

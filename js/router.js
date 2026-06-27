@@ -56,6 +56,7 @@ window.NTU = window.NTU || {};
       viewRoot.innerHTML = '<div class="empty-state"><h2>Not found</h2><p><a href="#/">Go to dashboard</a></p></div>';
       return;
     }
+    viewRoot.classList.remove("is-wide");
     try {
       resolved.route.render(resolved.params, viewRoot);
     } catch (err) {

@@ -1,7 +1,7 @@
 /* Cache-first service worker for the app shell + question data, so the app
    works fully offline after the first visit. Bump CACHE_VERSION whenever the
    app shell OR the data/*.data.js files change, to force a clean refresh. */
-const CACHE_VERSION = "v4";
+const CACHE_VERSION = "v5";
 const CACHE_NAME = "ntu-ecat-cache-" + CACHE_VERSION;
 
 const PRECACHE_URLS = [
@@ -13,13 +13,16 @@ const PRECACHE_URLS = [
   "./css/components.css",
   "./css/views.css",
   "./js/util.js",
+  "./js/theme.js",
   "./js/store.js",
   "./js/data-index.js",
   "./js/router.js",
   "./js/app.js",
+  "./js/views/blocks-renderer.js",
   "./js/views/dashboard.js",
   "./js/views/subject-list.js",
   "./js/views/topic-notes.js",
+  "./js/views/book.js",
   "./js/views/practice-quiz.js",
   "./js/views/paper-list.js",
   "./js/views/exam.js",
@@ -33,6 +36,7 @@ const PRECACHE_URLS = [
   "./assets/icons/icon-512.png",
   "./assets/icons/icon-maskable-512.png",
   "./assets/icons/favicon.ico",
+  "./assets/fonts/Inter-Variable.woff2",
 ];
 
 self.addEventListener("install", (event) => {

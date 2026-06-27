@@ -1,6 +1,9 @@
-/* Colour tokens ported from the printed book's design system
-   (naseer2/config/colors.tex), so the app is recognizably "the same book". */
+/* Design tokens. Light theme is the default (:root); a [data-theme="dark"]
+   override block below replaces the surface/text/accent values for dark
+   mode -- components should consume the semantic surface/text tokens
+   (not raw colors) so dark mode needs no per-component rules. */
 :root {
+  /* ---- Brand anchor (header, focused continuity with the printed book) ---- */
   --ntu-navy: #12355B;
   --ntu-blue: #1E6091;
   --ntu-teal: #168AAD;
@@ -11,25 +14,98 @@
   --ntu-light: #F4F8FB;
   --ntu-dark: #263238;
 
-  --subj-english: #1E6091;
-  --subj-ar: #6D597A;
-  --subj-qr: #168AAD;
-  --subj-math: #3D348B;
-  --subj-physics: #0496FF;
-  --subj-chemistry: #2A9D8F;
-  --subj-cs: #12355B;
-  --subj-biology: #588157;
-  --subj-statistics: #BC6C25;
+  /* ---- Vibrant per-subject accents (distinct hues, not brand-matched) ---- */
+  --subj-english: #4F46E5;    /* indigo */
+  --subj-ar: #DB2777;         /* pink */
+  --subj-qr: #0891B2;         /* cyan */
+  --subj-math: #7C3AED;       /* violet */
+  --subj-physics: #2563EB;    /* blue */
+  --subj-chemistry: #059669;  /* emerald */
+  --subj-cs: #4338CA;         /* indigo-700 */
+  --subj-biology: #16A34A;    /* green */
+  --subj-statistics: #D97706; /* amber */
 
-  --sem-explanation: #2A9D8F;
-  --sem-tactic: #2A9D8F;
-  --sem-trap: #C44536;
-  --sem-remember: #6D597A;
-  --sem-warning: #E09F3E;
+  /* ---- Callout/admonition kinds (grouped from ~40 text prefixes into 5) ---- */
+  --sem-example: #2563EB;
+  --sem-tactic: #059669;
+  --sem-reasoning: #7C3AED;
+  --sem-warning: #DC2626;
+  --sem-check: #D97706;
 
+  /* kept for backward compat with existing .info-box call sites */
+  --sem-explanation: var(--sem-example);
+  --sem-trap: var(--sem-warning);
+  --sem-remember: var(--subj-ar);
+
+  /* ---- Feedback (correct/incorrect) -- separate from subject colors,
+     always paired with an icon in markup, not color alone ---- */
+  --feedback-correct: #16A34A;
+  --feedback-incorrect: #DC2626;
+  --feedback-correct-bg: #ECFDF5;
+  --feedback-incorrect-bg: #FEF2F2;
+
+  /* ---- Semantic surfaces (the dark-mode override block re-points these) ---- */
+  --surface-bg: var(--ntu-light);
+  --surface-card: #ffffff;
+  --surface-border: #d7dee4;
+  --surface-hover: #eef3f7;
+  --surface-muted-text: #5b6b78;
+  --text-primary: var(--ntu-dark);
+  --text-on-accent: #ffffff;
+
+  /* ---- Layout ---- */
   --radius: 10px;
   --radius-sm: 6px;
   --shadow: 0 1px 3px rgba(18,53,91,0.12), 0 1px 2px rgba(18,53,91,0.08);
   --shadow-lg: 0 4px 16px rgba(18,53,91,0.16);
   --max-width: 880px;
+  --max-width-book: 1180px;
+
+  /* ---- Buttons / motion ---- */
+  --grad-primary: linear-gradient(135deg, var(--ntu-blue), #6D28D9);
+  --shadow-btn: 0 2px 8px rgba(30,96,145,0.35);
+  --shadow-btn-hover: 0 4px 14px rgba(30,96,145,0.45);
+  --ease-press: cubic-bezier(.4,0,.2,1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+
+  /* ---- Typography ---- */
+  --font-sans: "Inter", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+[data-theme="dark"] {
+  --surface-bg: #0F1720;
+  --surface-card: #1A2530;
+  --surface-border: #2C3A47;
+  --surface-hover: #233241;
+  --surface-muted-text: #93A3AD;
+  --text-primary: #E8EEF2;
+  --text-on-accent: #ffffff;
+
+  --ntu-light: #0F1720;
+  --ntu-dark: #E8EEF2;
+
+  --subj-english: #818CF8;
+  --subj-ar: #F472B6;
+  --subj-qr: #22D3EE;
+  --subj-math: #A78BFA;
+  --subj-physics: #60A5FA;
+  --subj-chemistry: #34D399;
+  --subj-cs: #93C5FD;
+  --subj-biology: #4ADE80;
+  --subj-statistics: #FBBF24;
+
+  --sem-example: #60A5FA;
+  --sem-tactic: #34D399;
+  --sem-reasoning: #A78BFA;
+  --sem-warning: #F87171;
+  --sem-check: #FBBF24;
+
+  --feedback-correct: #4ADE80;
+  --feedback-incorrect: #F87171;
+  --feedback-correct-bg: rgba(74,222,128,0.12);
+  --feedback-incorrect-bg: rgba(248,113,113,0.12);
+
+  --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.5);
 }

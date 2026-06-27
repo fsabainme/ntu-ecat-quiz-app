@@ -39,8 +39,8 @@ window.NTU.views = window.NTU.views || {};
         <div class="quiz-nav-row">
           <button class="btn btn-secondary" id="prev-q" ${idx === 0 ? "disabled" : ""}>&larr; Prev</button>
           ${idx === questions.length - 1
-            ? `<button class="btn" id="finish-q" ${answered ? "" : "disabled"}>Finish set</button>`
-            : `<button class="btn" id="next-q" ${answered ? "" : "disabled"}>Next &rarr;</button>`}
+            ? `<button class="btn btn-primary-lg" id="finish-q" ${answered ? "" : "disabled"}>Finish set &check;</button>`
+            : `<button class="btn btn-primary-lg" id="next-q" ${answered ? "" : "disabled"}>Next question &rarr;</button>`}
         </div>
         <p style="margin-top:14px"><button class="btn btn-secondary" id="end-early">End set now (score so far)</button></p>
       `;
@@ -57,7 +57,8 @@ window.NTU.views = window.NTU.views || {};
           if (letter === q.correct) btn.classList.add("is-correct");
           else if (letter === chosen) btn.classList.add("is-incorrect");
         }
-        btn.innerHTML = `<span class="opt-letter">${letter}</span><span>${escapeHtml(q.options[letter])}</span>`;
+        const resultIcon = !answered ? "" : letter === q.correct ? "&check;" : letter === chosen ? "&cross;" : "";
+        btn.innerHTML = `<span class="opt-letter">${letter}</span><span>${escapeHtml(q.options[letter])}</span><span class="opt-result-icon">${resultIcon}</span>`;
         btn.addEventListener("click", () => selectAnswer(letter));
         optionsEl.appendChild(btn);
       });

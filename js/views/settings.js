@@ -7,6 +7,11 @@ window.NTU.views = window.NTU.views || {};
     container.innerHTML = `
       <h1>Settings</h1>
       <div class="card">
+        <h3>Appearance</h3>
+        <p class="muted">Switch between light and dark theme.</p>
+        <p><button class="btn btn-secondary" id="theme-toggle-settings" type="button">${themeLabel()}</button></p>
+      </div>
+      <div class="card">
         <h3>Your progress</h3>
         <p class="muted">Progress is stored only in this browser (localStorage). It does not sync between devices.</p>
         <p>
@@ -53,6 +58,16 @@ window.NTU.views = window.NTU.views || {};
         NTU.router.navigate("#/");
       }
     });
+
+    const themeBtn = container.querySelector("#theme-toggle-settings");
+    themeBtn.addEventListener("click", () => {
+      NTU.theme.toggle();
+      themeBtn.textContent = themeLabel();
+    });
+  }
+
+  function themeLabel() {
+    return NTU.theme.get() === "dark" ? "☀️ Switch to light" : "🌙 Switch to dark";
   }
 
   window.NTU.views.settings = { render };

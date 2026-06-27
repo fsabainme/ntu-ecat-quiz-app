@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #eef1f4;
+  border-bottom: 1px solid var(--surface-border);
   font-size: 0.92rem;
 }
 .activity-row:last-child { border-bottom: none; }
@@ -15,13 +15,13 @@
 /* Group filter tabs (Volume II) */
 .tab-row { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
 .tab-row button {
-  background: white;
-  border: 1.5px solid #d7dee4;
+  background: var(--surface-card);
+  border: 1.5px solid var(--surface-border);
   border-radius: 999px;
   padding: 6px 14px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--ntu-navy);
+  color: var(--text-primary);
 }
 .tab-row button.is-active { background: var(--ntu-navy); color: white; border-color: var(--ntu-navy); }
 
@@ -33,7 +33,7 @@
   font-size: 0.88rem;
   margin: 12px 0;
 }
-.cover-info-grid .label { color: #5b6b78; }
+.cover-info-grid .label { color: var(--surface-muted-text); }
 
 /* Quiz progress strip */
 .quiz-progress {
@@ -42,9 +42,16 @@
   align-items: center;
   margin-bottom: 10px;
   font-size: 0.85rem;
-  color: #5b6b78;
+  color: var(--surface-muted-text);
 }
-.quiz-nav-row { display: flex; justify-content: space-between; margin-top: 16px; gap: 8px; }
+.quiz-nav-row { display: flex; align-items: stretch; margin-top: 16px; gap: 10px; }
+.quiz-nav-row .btn-secondary { flex: 0 0 auto; }
+.quiz-nav-row .btn:not(.btn-secondary) { flex: 1 1 auto; }
+
+/* Topic browsing (prev/next topic) -- both buttons are secondary, so this
+   keeps the old evenly-spread layout instead of quiz-nav-row's
+   flex-grow-the-primary-button behavior. */
+.topic-nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; gap: 10px; flex-wrap: wrap; }
 
 /* Review screen */
 .review-section-heading {
@@ -56,15 +63,54 @@
   font-weight: 700;
   margin: 18px 0 8px;
 }
-.review-item { padding: 10px 0; border-bottom: 1px solid #eef1f4; }
+.review-item { padding: 10px 0; border-bottom: 1px solid var(--surface-border); }
 .review-item .review-stem { font-weight: 600; }
 .review-item .review-answers { font-size: 0.88rem; margin-top: 4px; }
-.review-item .review-answers .wrong { color: var(--ntu-red); }
-.review-item .review-answers .right { color: var(--ntu-green); }
+.review-item .review-answers .wrong { color: var(--feedback-incorrect); }
+.review-item .review-answers .right { color: var(--feedback-correct); }
 
 footer.app-footer {
   text-align: center;
-  color: #93a3ad;
+  color: var(--surface-muted-text);
   font-size: 0.78rem;
   padding: 24px 16px;
 }
+
+/* Single-page study book */
+.reading-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: transparent; z-index: 20; }
+#reading-progress-fill { height: 100%; width: 0; background: var(--grad-primary); transition: width 80ms linear; }
+
+.book-layout { display: grid; grid-template-columns: 1fr; gap: 0; }
+@media (min-width: 960px) {
+  .book-layout { grid-template-columns: 300px 1fr; gap: 32px; align-items: start; }
+}
+.book-toc-toggle { display: inline-flex; margin-bottom: 10px; }
+@media (min-width: 960px) { .book-toc-toggle { display: none; } }
+
+.book-toc {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--surface-card);
+  border-radius: var(--radius);
+  padding: 12px;
+  max-height: 70vh;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.book-toc.is-open { display: flex; }
+@media (min-width: 960px) {
+  .book-toc { display: flex; position: sticky; top: 70px; max-height: calc(100vh - 90px); }
+}
+.toc-subject { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--card-accent, var(--ntu-navy)); margin: 14px 0 4px; }
+.toc-subject:first-child { margin-top: 0; }
+.toc-link { padding: 5px 8px; border-radius: var(--radius-sm); font-size: 0.86rem; color: var(--text-primary); text-decoration: none; }
+.toc-link:hover { background: color-mix(in srgb, var(--ntu-blue) 8%, transparent); }
+.toc-link.is-active { background: color-mix(in srgb, var(--ntu-blue) 14%, transparent); color: var(--ntu-blue); font-weight: 700; }
+
+.book-content { min-width: 0; }
+.book-subject-heading { margin-top: 48px; padding-top: 16px; border-top: 4px solid currentColor; }
+.book-subject-heading:first-of-type { margin-top: 16px; }
+.book-section { margin-bottom: 36px; scroll-margin-top: 80px; }
+.book-section h2 { color: var(--card-accent, var(--ntu-navy)); border-bottom: 2px solid color-mix(in srgb, var(--card-accent, var(--ntu-navy)) 30%, transparent); padding-bottom: 6px; }
