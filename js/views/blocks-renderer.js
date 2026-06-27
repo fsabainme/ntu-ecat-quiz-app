@@ -39,14 +39,29 @@ window.NTU.blocksRenderer = (function () {
     reasoning: { icon: "🧭" },
     warning: { icon: "⚠️" },
     check: { icon: "✅" },
+    note: { icon: "📌" },
   };
+
+  // Best-effort classification for ALL-CAPS prefixes not in the explicit
+  // map above (e.g. ones unique to front_matter's exam-strategy section,
+  // like "READ THE TASK WORD:" or "PROTECT EASY MARKS:") -- every
+  // recognizable label still gets colored, just via a keyword guess
+  // instead of a precise lookup, falling back to a neutral "note" kind.
+  function classifyUnknownPrefix(prefix) {
+    if (/ERROR|TRAP|AVOID|WARNING|WRONG|INVALID|MISTAKE/.test(prefix)) return "warning";
+    if (/CHECK|VERIFY|CONFIRM|REVIEW|TRANSFER/.test(prefix)) return "check";
+    if (/EXAMPLE|SOLUTION|SCENARIO|ILLUSTRATION|DEMONSTRATION/.test(prefix)) return "example";
+    if (/TACTIC|ROUTINE|HABIT|METHOD|STRATEGY|APPROACH|TECHNIQUE|RULE|TIP|PASS|PROTECT|ELIMINATE|USE /.test(prefix)) return "tactic";
+    if (/REASON|STEP|LOGIC|DEDUCTION|ANALYSIS|READ /.test(prefix)) return "reasoning";
+    return "note";
+  }
 
   function detectCallout(text) {
     const m = text.match(PREFIX_RE);
     if (!m) return null;
-    const kind = CALLOUT_KIND_BY_PREFIX[m[1].trim()];
-    if (!kind) return null;
-    return { kind, label: m[1].trim(), rest: m[2] };
+    const prefix = m[1].trim();
+    const kind = CALLOUT_KIND_BY_PREFIX[prefix] || classifyUnknownPrefix(prefix);
+    return { kind, label: prefix, rest: m[2] };
   }
 
   function calloutHtml(kind, label, rest) {

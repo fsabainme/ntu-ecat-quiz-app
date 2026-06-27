@@ -161,6 +161,7 @@
 .callout-reasoning { --callout-color: var(--sem-reasoning); }
 .callout-warning   { --callout-color: var(--sem-warning); }
 .callout-check     { --callout-color: var(--sem-check); }
+.callout-note      { --callout-color: var(--sem-note); }
 
 /* Timer */
 .exam-timer {

@@ -25,12 +25,13 @@
   --subj-biology: #16A34A;    /* green */
   --subj-statistics: #D97706; /* amber */
 
-  /* ---- Callout/admonition kinds (grouped from ~40 text prefixes into 5) ---- */
+  /* ---- Callout/admonition kinds (grouped from ~40 text prefixes into 6) ---- */
   --sem-example: #2563EB;
   --sem-tactic: #059669;
   --sem-reasoning: #7C3AED;
   --sem-warning: #DC2626;
   --sem-check: #D97706;
+  --sem-note: #475569;
 
   /* kept for backward compat with existing .info-box call sites */
   --sem-explanation: var(--sem-example);
@@ -100,6 +101,7 @@
   --sem-reasoning: #A78BFA;
   --sem-warning: #F87171;
   --sem-check: #FBBF24;
+  --sem-note: #94A3B8;
 
   --feedback-correct: #4ADE80;
   --feedback-incorrect: #F87171;

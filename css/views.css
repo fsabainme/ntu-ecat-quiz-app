@@ -109,9 +109,10 @@ footer.app-footer {
 @media (min-width: 960px) {
   .book-toc { display: flex; position: sticky; top: 70px; max-height: calc(100vh - 90px); }
 }
+.toc-group { display: flex; flex-direction: column; }
 .toc-subject { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--card-accent, var(--ntu-navy)); margin: 14px 0 4px; }
 .toc-subject:first-child { margin-top: 0; }
-.toc-link { padding: 5px 8px; border-radius: var(--radius-sm); font-size: 0.86rem; color: var(--text-primary); text-decoration: none; }
+.toc-link { display: block; padding: 5px 8px; border-radius: var(--radius-sm); font-size: 0.86rem; color: var(--text-primary); text-decoration: none; }
 .toc-link:hover { background: color-mix(in srgb, var(--ntu-blue) 8%, transparent); }
 .toc-link.is-active { background: color-mix(in srgb, var(--ntu-blue) 14%, transparent); color: var(--ntu-blue); font-weight: 700; }
 
