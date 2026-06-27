@@ -213,6 +213,11 @@
 }
 .note-block ul, .note-block ol { padding-left: 1.3em; }
 
+/* Short inline labels mid-sentence (Form:, Negative:, Question:, etc.) --
+   colored via the topic's own subject accent, so different subjects'
+   pages read in different colors without needing a separate palette. */
+.inline-label { color: var(--card-accent, var(--ntu-blue)); font-weight: 700; }
+
 .note-table-wrap { overflow-x: auto; margin: 12px 0; }
 .note-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
 .note-table th { text-align: left; border-bottom: 2px solid var(--card-accent, var(--ntu-navy)); padding: 6px 8px; color: var(--text-primary); }

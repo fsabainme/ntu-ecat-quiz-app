@@ -33,6 +33,20 @@ window.NTU.blocksRenderer = (function () {
   };
   const PREFIX_RE = /^([A-Z][A-Z0-9 \-\/]{2,40}?):\s*([\s\S]*)$/;
 
+  // Fallback for mixed-case numbered block prefixes the strict ALL-CAPS
+  // regex above can't match, e.g. "ADDITIONAL EXAMPLE 2 - Agreement:" or
+  // "STEP 1 - Choose an anchor:" (confirmed via grep: 6 ADDITIONAL EXAMPLE
+  // + 11 STEP paragraphs in volume1.json, no other variants).
+  const MIXED_PREFIX_RE = /^([A-Z][A-Z ]*\d+ - [^:]+):\s*([\s\S]*)$/;
+
+  // Short inline labels that recur multiple times WITHIN a single
+  // paragraph's running text (not just at the start), e.g.
+  // "Form: ... Negative: ... Question: ... Main use: ...". Case-sensitive
+  // and exact -- confirmed via grep these exact strings repeat across many
+  // paragraphs with no ambiguous overlap (lowercase "form" only ever
+  // appears as the second word of "Active/Passive/Direct/Reported form").
+  const INLINE_LABEL_RE = /\b(Active form|Passive form|Passive pattern|Direct form|Reported form|Form|Negative|Question|Main use|Pattern|Meaning):/g;
+
   const KIND_META = {
     example: { icon: "🧩" },
     tactic: { icon: "⚡" },
@@ -58,10 +72,18 @@ window.NTU.blocksRenderer = (function () {
 
   function detectCallout(text) {
     const m = text.match(PREFIX_RE);
-    if (!m) return null;
-    const prefix = m[1].trim();
-    const kind = CALLOUT_KIND_BY_PREFIX[prefix] || classifyUnknownPrefix(prefix);
-    return { kind, label: prefix, rest: m[2] };
+    if (m) {
+      const prefix = m[1].trim();
+      const kind = CALLOUT_KIND_BY_PREFIX[prefix] || classifyUnknownPrefix(prefix);
+      return { kind, label: prefix, rest: m[2] };
+    }
+    const m2 = text.match(MIXED_PREFIX_RE);
+    if (m2) {
+      const prefix = m2[1].trim();
+      const kind = /^STEP\b/.test(prefix) ? "reasoning" : classifyUnknownPrefix(prefix);
+      return { kind, label: prefix, rest: m2[2] };
+    }
+    return null;
   }
 
   function calloutHtml(kind, label, rest) {
@@ -70,9 +92,17 @@ window.NTU.blocksRenderer = (function () {
       <div class="callout-icon" aria-hidden="true">${meta.icon}</div>
       <div class="callout-body">
         <div class="callout-label">${escapeHtml(label)}</div>
-        <p>${escapeHtml(rest)}</p>
+        <p>${escapeAndHighlight(rest)}</p>
       </div>
     </div>`;
+  }
+
+  // Escapes text for HTML, then wraps any recognized inline labels in a
+  // colored span. Safe to compose in this order because none of the
+  // whitelisted label strings contain HTML-special characters, so escaping
+  // first never changes whether/where they match.
+  function escapeAndHighlight(text) {
+    return escapeHtml(text).replace(INLINE_LABEL_RE, '<span class="inline-label">$1:</span>');
   }
 
   // Normalizes either schema into {kind, text} / {kind, rows} pairs, where
@@ -98,7 +128,7 @@ window.NTU.blocksRenderer = (function () {
     function flush() {
       if (!pendingList) return;
       const tag = pendingList.tag;
-      html += `<${tag}>` + pendingList.items.map((i) => `<li>${escapeHtml(i)}</li>`).join("") + `</${tag}>`;
+      html += `<${tag}>` + pendingList.items.map((i) => `<li>${escapeAndHighlight(i)}</li>`).join("") + `</${tag}>`;
       pendingList = null;
     }
 
@@ -122,7 +152,7 @@ window.NTU.blocksRenderer = (function () {
       } else {
         const callout = detectCallout(b.text);
         if (callout) html += calloutHtml(callout.kind, callout.label, callout.rest);
-        else html += `<p class="note-block">${escapeHtml(b.text)}</p>`;
+        else html += `<p class="note-block">${escapeAndHighlight(b.text)}</p>`;
       }
     });
     flush();
