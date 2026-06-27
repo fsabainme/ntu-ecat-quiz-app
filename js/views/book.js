@@ -119,10 +119,20 @@ window.NTU.views = window.NTU.views || {};
     const toc = container.querySelector("#book-toc");
     if (toggle && toc) {
       toggle.addEventListener("click", () => toc.classList.toggle("is-open"));
-      toc.querySelectorAll(".toc-link").forEach((link) =>
-        link.addEventListener("click", () => toc.classList.remove("is-open"))
-      );
     }
+    // TOC links are plain "#some-id" fragment anchors used to scroll within
+    // this single page -- they must NOT go through the app's hash router
+    // (which treats every hashchange as a route lookup and would render
+    // "Not found", since "#book-topic-..." doesn't match any "#/..." route).
+    // Scroll manually instead, without touching location.hash.
+    container.querySelectorAll(".toc-link").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute("href"));
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (toc) toc.classList.remove("is-open");
+      });
+    });
   }
 
   function titleCase(s) {
